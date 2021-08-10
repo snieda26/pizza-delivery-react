@@ -1,6 +1,6 @@
 
 
 
-export { default as filtersReducer } from './filters'
-
-export { default as pizzasReducer } from './pizzas'
+export { default as filters } from './filters'
+export { default as cart } from './cart'
+export { default as pizzas } from './pizzas'

@@ -5,6 +5,9 @@ import { Header } from './components'
 import { Home, Cart } from './pages'
 
 function App() {
+
+
+
   return (
     <div className="wrapper">
       <Header />

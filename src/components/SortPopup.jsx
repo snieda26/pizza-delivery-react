@@ -1,19 +1,10 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { useDispatch, } from 'react-redux'
 import cl from 'classnames'
 
-import { setSortBy } from '../redux/actions'
+const SortPopup = React.memo(({ items, activeSortType, onSelectType }) => {
 
-const SortPopup = React.memo(({ items }) => {
-
-    const dispatch = useDispatch()
-    const [activeItem, setActiveItem] = useState(0)
-    const activeLabel = items[activeItem].name
-
-    const onSelectType = useCallback((type, ind) => {
-        dispatch(setSortBy(type))
-        setActiveItem(ind)
-    }, [])
+    const activeLabel = items.find(obj => obj.type === activeSortType).name
 
     const [visiblePopup, setVisiblePopup] = useState(false)
     const sortRef = useRef()
@@ -59,7 +50,7 @@ const SortPopup = React.memo(({ items }) => {
                 <div className="sort__popup">
                     <ul>
                         {items.map((obj, ind) => {
-                            return <li className={activeItem === ind ? 'active' : ''} onClick={() => onSelectType(obj.type, ind)} key={`${obj.type}_${ind}`}>{obj.name}</li>
+                            return <li className={activeSortType === obj.type ? 'active' : ''} onClick={() => onSelectType(obj.type)} key={`${obj.type}_${ind}`}>{obj.name}</li>
                         })}
                     </ul>
                 </div>

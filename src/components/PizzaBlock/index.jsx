@@ -1,14 +1,29 @@
 import React, { useState } from 'react'
 import cn from 'classnames'
+import Button from './Button'
 
 const allSizes = [26, 30, 40]
 const typeItems = ['тонкое', 'традиционное']
 
 
-function PizzaBlock({ price, sizes, types, imageUrl, name }) {
+function PizzaBlock({ onAddPizza, addedCount, price, sizes, types, imageUrl, name, id }) {
 
     const [activeType, setActiveType] = useState(types[0])
     const [activeSize, setActiveSize] = useState(sizes[0])
+
+
+
+    const handleAddPizza = () => {
+        const obj = {
+            name,
+            price,
+            id,
+            image: imageUrl,
+            size: activeSize,
+            type: typeItems[activeType]
+        }
+        onAddPizza(obj)
+    }
 
     return (
         <div>
@@ -39,7 +54,9 @@ function PizzaBlock({ price, sizes, types, imageUrl, name }) {
                 </div>
                 <div className="pizza-block__bottom">
                     <div className="pizza-block__price">от {price} ₽</div>
-                    <div className="button button--outline button--add">
+
+                    <Button onClick={handleAddPizza}>
+
                         <svg
                             width="12"
                             height="12"
@@ -53,12 +70,12 @@ function PizzaBlock({ price, sizes, types, imageUrl, name }) {
                             />
                         </svg>
                         <span>Добавить</span>
-                        <i>2</i>
-                    </div>
+                        {addedCount && <i>{addedCount}</i>}
+
+                    </Button>
                 </div>
             </div>
         </div>)
-
 }
 
 export default PizzaBlock
